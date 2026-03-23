@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DELICIARI | Confeitaria Artesanal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#fffaf8;
+  color:#4b3b2b;
+}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  background:white;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.logo{
+  font-family:'Playfair Display';
+  font-size:28px;
+}
+
+/* HERO CARROSSEL */
+.hero{
+  position:relative;
+  height:420px;
+  overflow:hidden;
+}
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:0.6s;
+}
+.slide.active{
+  opacity:1;
+}
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.3);
+}
+.hero-content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:white;
+  text-align:center;
+}
+.hero-content h1{
+  font-family:'Playfair Display';
+  font-size:38px;
+}
+.hero-content p{
+  margin-top:10px;
+}
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:30px;
+  color:white;
+  cursor:pointer;
+  padding:10px;
+}
+.left{left:10px;}
+.right{right:10px;}
+
+/* PROMO */
+.promo{
+  text-align:center;
+  background:#e6a995;
+  color:white;
+  padding:12px;
+  font-weight:bold;
+}
+
+/* PRODUTOS */
+.produtos{
+  padding:50px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+}
+@media(max-width:900px){
+  .cards{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:500px){
+  .cards{grid-template-columns:1fr;}
+}
+.card{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-8px);
+}
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+.card-content{
+  padding:15px;
+}
+.preco{
+  color:#d47c63;
+  font-weight:bold;
+}
+.qtd{
+  display:flex;
+  justify-content:space-between;
+  margin:10px 0;
+}
+.qtd button{
+  background:#f3d5c0;
+  border:none;
+  width:30px;
+  height:30px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.add{
+  width:100%;
+  padding:10px;
+  background:#e6a995;
+  border:none;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* CARRINHO */
+#carrinho{
+  position:fixed;
+  right:20px;
+  top:90px;
+  width:280px;
+  background:white;
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+.total{
+  font-weight:bold;
+  margin-top:10px;
+}
+
+/* AVALIAÇÕES CARROSSEL */
+.avaliacoes{
+  padding:50px;
+  background:#fff3ee;
+}
+.avaliacoes h2{
+  text-align:center;
+}
+.cards-avaliacoes{
+  display:flex;
+  overflow:hidden;
+  gap:20px;
+  justify-content:center;
+  margin-top:30px;
+  transition:0.5s;
+}
+.avaliacao-card{
+  min-width:250px;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+  flex-shrink:0;
+}
+.avaliacao-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 25px rgba(0,0,0,0.2);
+}
+.avaliacao-card img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:10px;
+}
+.avaliacao-card h3{
+  margin:5px 0;
+}
+.avaliacao-card p{
+  font-size:14px;
+  color:#4b3b2b;
+  margin:5px 0 10px 0;
+}
+.avaliacao-card .estrelas{
+  color:#FFD700;
+  font-size:16px;
+}
+
+/* CONTATO */
+.contato{
+  padding:50px;
+  background:#fff3ee;
+}
+.contato-box{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  align-items:center;
+  justify-content:center;
+}
+.info{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  max-width:350px;
+}
+.info p{
+  margin:8px 0;
+}
+.social i{
+  font-size:22px;
+  margin:10px;
+  cursor:pointer;
+  color:#7a4b3a;
+}
+.mapa iframe{
+  width:350px;
+  height:250px;
+  border:none;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* CHAT */
+#chatButton{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#25D366;
+  color:white;
+  font-size:24px;
+  border:none;
+  cursor:pointer;
+}
+#chatBox{
+  position:fixed;
+  bottom:90px;
+  right:20px;
+  width:300px;
+  background:white;
+  border-radius:15px;
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+#messages{
+  height:220px;
+  overflow:auto;
+  padding:10px;
+}
+#messages p{
+  background:#f1f1f1;
+  padding:8px;
+  border-radius:8px;
+  margin:5px 0;
+}
+#messages .user{
+  background:#d1ffd6;
+}
+
+/* FOOTER */
+footer{
+  padding:30px;
+  text-align:center;
+  background:white;
+}
+.redes i{
+  margin:10px;
+  font-size:22px;
+  cursor:pointer;
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .hero{height:300px;}
+  #carrinho{position:static;width:100%;}
+  .contato-box{flex-direction:column;}
+  .mapa iframe{width:100%;}
+  .cards{grid-template-columns:repeat(2,1fr);}
+  .cards-avaliacoes{overflow-x:auto;}
+}
+@media(max-width:500px){
+  .cards{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">DELICIARI</div>
+</header>
+
+<div class="promo">
+🔥 Promoção: Compre 2 bolos e ganhe 10% OFF
+</div>
+
+<!-- HERO CARROSSEL -->
+<section class="hero">
+  <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=1200&q=80')"></div>
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1586985289906-406988974504?auto=format&fit=crop&w=1200&q=80')"></div>
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>Doces que abraçam o coração 💕</h1>
+    <p>Bolos e pães artesanais feitos com amor</p>
+  </div>
+  <div class="arrow left" onclick="prev()">❮</div>
+  <div class="arrow right" onclick="next()">❯</div>
+</section>
+
+<!-- PRODUTOS COMPLETO -->
+<section class="produtos">
+<h2>Cardápio</h2>
+<div class="cards">
+  <!-- Card 1 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1586985289906-406988974504?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Bolo de Cenoura</h3>
+      <p class="preco">R$25</p>
+      <div class="qtd"><button onclick="qtd('c',-1)">-</button><span id="c">0</span><button onclick="qtd('c',1)">+</button></div>
+      <button class="add" onclick="add('Bolo de Cenoura',25,'c')">Adicionar</button>
+    </div>
+  </div>
+  <!-- Card 2 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Pão Caseiro</h3>
+      <p class="preco">R$18</p>
+      <div class="qtd"><button onclick="qtd('p',-1)">-</button><span id="p">0</span><button onclick="qtd('p',1)">+</button></div>
+      <button class="add" onclick="add('Pão Caseiro',18,'p')">Adicionar</button>
+    </div>
+  </div>
+  <!-- Card 3 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1612197525730-27f956c0a5d1?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Bolo de Chocolate</h3>
+      <p class="preco">R$30</p>
+      <div class="qtd"><button onclick="qtd('bc',-1)">-</button><span id="bc">0</span><button onclick="qtd('bc',1)">+</button></div>
+      <button class="add" onclick="add('Bolo de Chocolate',30,'bc')">Adicionar</button>
+    </div>
+  </div>
+  <!-- Card 4 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1599785209707-19513df7883d?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Cookies</h3>
+      <p class="preco">R$12</p>
+      <div class="qtd"><button onclick="qtd('co',-1)">-</button><span id="co">0</span><button onclick="qtd('co',1)">+</button></div>
+      <button class="add" onclick="add('Cookies',12,'co')">Adicionar</button>
+    </div>
+  </div>
+  <!-- Card 5 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1599785209747-ef6d9b0b8e13?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Bolo de Limão</h3>
+      <p class="preco">R$28</p>
+      <div class="qtd"><button onclick="qtd('bl',-1)">-</button><span id="bl">0</span><button onclick="qtd('bl',1)">+</button></div>
+      <button class="add" onclick="add('Bolo de Limão',28,'bl')">Adicionar</button>
+    </div>
+  </div>
+  <!-- Card 6 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1606312670103-0283c687e183?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Pão Integral</h3>
+      <p class="preco">R$20</p>
+      <div class="qtd"><button onclick="qtd('pi',-1)">-</button><span id="pi">0</span><button onclick="qtd('pi',1)">+</button></div>
+      <button class="add" onclick="add('Pão Integral',20,'pi')">Adicionar</button>
+    </div>
+  </div>
+  <!-- Card 7 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1599785209707-38f13a2c9d8e?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Brownie</h3>
+      <p class="preco">R$15</p>
+      <div class="qtd"><button onclick="qtd('br',-1)">-</button><span id="br">0</span><button onclick="qtd('br',1)">+</button></div>
+      <button class="add" onclick="add('Brownie',15,'br')">Adicionar</button>
+    </div>
+  </div>
+  <!-- Card 8 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1599785209707-9d813f2d49c8?auto=format&fit=crop&w=400&q=80">
+    <div class="card-content">
+      <h3>Quiche</h3>
+      <p class="preco">R$22</p>
+      <div class="qtd"><button onclick="qtd('q',-1)">-</button><span id="q">0</span><button onclick="qtd('q',1)">+</button></div>
+      <button class="add" onclick="add('Quiche',22,'q')">Adicionar</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CARRINHO -->
+<div id="carrinho">
+<h4>Seu Pedido</h4>
+<div id="lista"></div>
+<div class="total" id="total"></div>
+<button onclick="finalizar()">Finalizar no WhatsApp</button>
+</div>
+
+<!-- AVALIAÇÕES CENTRALIZADAS -->
+<section class="avaliacoes">
+<h2>Clientes felizes ⭐</h2>
+<div class="cards-avaliacoes" id="cards-avaliacoes">
+  <div class="avaliacao-card">
+    <img src="https://randomuser.me/api/portraits/women/68.jpg">
+    <h3>Maria Silva</h3>
+    <p>Os bolos são simplesmente deliciosos! Sempre volto 😍</p>
+    <div class="estrelas">⭐⭐⭐⭐⭐</div>
+  </div>
+  <div class="avaliacao-card">
+    <img src="https://randomuser.me/api/portraits/men/72.jpg">
+    <h3>João Santos</h3>
+    <p>Atendimento excelente e produtos fresquinhos. Recomendo!</p>
+    <div class="estrelas">⭐⭐⭐⭐⭐</div>
+  </div>
+  <div class="avaliacao-card">
+    <img src="https://randomuser.me/api/portraits/women/44.jpg">
+    <h3>Carla Pereira</h3>
+    <p>O melhor pão caseiro que já comi na vida! ❤️</p>
+    <div class="estrelas">⭐⭐⭐⭐⭐</div>
+  </div>
+</div>
+</section>
+
+<!-- CONTATO E MAPA ORIGINAL -->
+<section class="contato">
+<h2>📍 Contato</h2>
+<div class="contato-box">
+  <div class="info">
+    <h3>DELICIARI</h3>
+    <p><i class="fas fa-map-marker-alt"></i> Rua Exemplo, 123 - Campinas/SP</p>
+    <p><i class="fas fa-phone"></i> (19) 99999-9999</p>
+    <p><i class="fab fa-whatsapp"></i> WhatsApp disponível</p>
+    <p><i class="fas fa-clock"></i> Seg a Sáb - 08h às 18h</p>
+    <div class="social">
+      <i class="fab fa-instagram" onclick="abrir('https://instagram.com')"></i>
+      <i class="fab fa-facebook" onclick="abrir('https://facebook.com')"></i>
+      <i class="fab fa-whatsapp" onclick="abrir('https://wa.me/5511999999999')"></i>
+    </div>
+  </div>
+  <div class="mapa">
+    <iframe src="https://www.google.com/maps?q=Campinas&output=embed"></iframe>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<p>© 2026 DELICIARI</p>
+</footer>
+
+<!-- CHAT -->
+<button id="chatButton" onclick="toggleChat()">💬</button>
+<div id="chatBox">
+<div id="messages"></div>
+<input id="msg" placeholder="Digite..." onkeypress="if(event.key==='Enter')chat()">
+</div>
+
+<script>
+// HERO CARROSSEL JS
+let slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+function showSlide(index){
+  slides.forEach((s,i)=>s.classList.remove('active'));
+  slides[index].classList.add('active');
+}
+function next(){currentSlide++; if(currentSlide>=slides.length)currentSlide=0; showSlide(currentSlide);}
+function prev(){currentSlide--; if(currentSlide<0)currentSlide=slides.length-1; showSlide(currentSlide);}
+setInterval(next, 7000);
+
+// CARRINHO
+let carrinho=[]; let total=0;
+function qtd(id,v){let el=document.getElementById(id); let n=parseInt(el.innerText)+v; if(n<0)n=0; el.innerText=n;}
+function add(nome,preco,id){let q=parseInt(document.getElementById(id).innerText); if(q==0)return alert("Escolha quantidade"); carrinho.push({nome,q,preco}); render(); abrirChat(); mensagemBot(`${nome} (x${q}) adicionado ao pedido 🛒`); mostrarOpcoes();}
+function render(){let html=""; total=0; carrinho.forEach(p=>{let sub=p.q*p.preco; total+=sub; html+=`<p>${p.nome} x${p.q} = R$${sub}</p>`}); lista.innerHTML=html; totalDiv.innerText="Total: R$"+total;}
+function finalizar(){if(carrinho.length===0)return alert("Carrinho vazio"); let texto="Pedido:%0A"; carrinho.forEach(p=>{texto+=`${p.nome} x${p.q}%0A`}); texto+=`Total: R$${total}`; window.open("https://wa.me/5511999999999?text="+texto);}
+
+// CHAT
+function toggleChat(){chatBox.style.display = chatBox.style.display==="flex"?"none":"flex";}
+function abrirChat(){chatBox.style.display="flex";}
+function mensagemBot(t){messages.innerHTML+=`<p>${t}</p>`; messages.scrollTop=messages.scrollHeight;}
+function mensagemUser(t){messages.innerHTML+=`<p class="user">${t}</p>`; messages.scrollTop=messages.scrollHeight;}
+function mostrarOpcoes(){messages.innerHTML+=`<div style="display:flex;gap:5px;margin:5px 0;"><button onclick="verPedido()" style="flex:1;padding:6px;border:none;border-radius:6px;background:#f3d5c0;">🛒 Pedido</button><button onclick="finalizarChat()" style="flex:1;padding:6px;border:none;border-radius:6px;background:#e6a995;color:white;">📲 Finalizar</button></div>`;}
+function verPedido(){if(carrinho.length===0){mensagemBot("Seu pedido está vazio 😢"); return;} let texto="🛒 Seu pedido:<br>"; let totalChat=0; carrinho.forEach(p=>{let sub=p.q*p.preco; totalChat+=sub; texto+=`${p.nome} x${p.q} = R$${sub}<br>`}); texto+=`<b>Total: R$${totalChat}</b>`; mensagemBot(texto);}
+function finalizarChat(){if(carrinho.length===0){mensagemBot("Adicione algo antes 😢"); return;} let texto="Pedido:%0A"; let totalChat=0; carrinho.forEach(p=>{texto+=`${p.nome} x${p.q}%0A`; totalChat+=p.q*p.preco;}); texto+=`Total: R$${totalChat}`; window.open("https://wa.me/5511999999999?text="+texto);}
+async function chat(){let m=msg.value; if(!m)return; mensagemUser(m); msg.value=""; let textoLower = m.toLowerCase(); if(textoLower.includes("cenoura")){add("Bolo de Cenoura",25,"c"); return;} if(textoLower.includes("pão")){add("Pão Caseiro",18,"p"); return;} mensagemBot("Desculpe, não entendi. Mas posso ajudar com o cardápio ou finalizar seu pedido! 😉"); mostrarOpcoes();}
+
+// REDES
+function abrir(url){window.open(url);}
+</script>
+
+</body>
+</html>
